@@ -5,6 +5,13 @@ fileContent = open("blocked.txt")
 
 print('emptying existing BLACKLIST chain')
 answer = os.popen('iptables -F BLACKLIST').read()
+
+if "Permission denied" in answer:
+    print(answer)
+    exit()
+
+answer = os.popen('iptables -L BLACKLIST -n').read()
+
 if "No chain/target/match by that name" in answer:
     print('No BLACKLIST chain existing.. creating one..')
     os.system('iptables -N BLACKLIST')
