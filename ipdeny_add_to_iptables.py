@@ -12,7 +12,7 @@ if "Permission denied" in answer:
 
 answer = os.popen('iptables -L BLACKLIST -n').read()
 
-if "No chain/target/match by that name" in answer:
+if len(answer.replace('\n', '')) == 0 or "No chain/target/match by that name" in answer:
     print('No BLACKLIST chain existing.. creating one..')
     os.system('iptables -N BLACKLIST')
     print('Inserting chain to the first position of the default chain...')
